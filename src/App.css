@@ -4,12 +4,35 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: #f5f5f5;
+
+}
+
+/* utility */
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.mr-10{
+    margin-right: 10px;
+}
+
+.mr-20{
+    margin-right: 20px;
+}
+
+
 .todoHome{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px;
+    max-width: 500%;
 }
+
+/* SearchBar */
 
 .wrapper{
   width: 500px;
@@ -36,7 +59,7 @@
 
 .bg-button{
     height: 60%;
-    background-color: aqua;
+    background-color: #ddf8dd;
     border-radius: 50%;
     aspect-ratio: 1;
     padding: 10px;
@@ -51,4 +74,85 @@
 }
 .addButton{
     font-size: 1.2rem;
+}
+
+/* SortandFilter */
+.sortFilter{
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.sort, .filter{
+  width: 200px;
+  padding: 10px 0;
+  border-radius: 20px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* TaskItem */
+.task-content{
+    width: 500px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff; 
+    border-radius: 10px;
+}
+
+
+.task-heading{
+  align-items: center;
+}
+
+.taskName{
+    display: flex;
+    align-items: center;
+}
+.labelColor, .labelName{
+    display: inline-block;
+}
+
+.labelName{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.labelColor{
+  background-color: #90EE90;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.taskTools{
+    display: flex;
+     
+}
+.editTools,.checkmark{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ddf8dd;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
+.tool{
+    font-size: 1.2rem;
+}
+
+/* Task-Body */
+.task-body{
+    margin-top: 10px;
+    align-items: end;
+}
+
+.circularProgress{
+   width: 50px; 
+   
 }
