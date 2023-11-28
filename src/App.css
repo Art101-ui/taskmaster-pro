@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;600&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -7,6 +9,7 @@
 body{
     background-color: #f5f5f5;
     line-height: 1.5;
+    font-family: 'Inter',sans-serif;
 }
 
 li{
@@ -77,8 +80,8 @@ li{
     cursor: pointer;
 
 }
-.addButton{
-    font-size: 1.2rem;
+.searchButton{
+    font-size: 1.1rem;
 }
 
 /* SortandFilter */
@@ -95,6 +98,7 @@ li{
   border-radius: 20px;
   background-color: #ffffff;
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
 }
 
@@ -115,14 +119,9 @@ li{
 .taskName{
     display: flex;
     align-items: center;
-}
-.labelColor, .labelName{
-    display: inline-block;
-}
-
-.labelName{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
+
 }
 
 .labelColor{
@@ -155,6 +154,7 @@ li{
 .task-body{
     margin-top: 10px;
     align-items: end;
+    font-size: 14px;
 }
 
 .tags{
@@ -165,6 +165,7 @@ li{
 }
 .tags li{
     background-color: #ddf8dd;
+    font-size: 12px;
     padding: 5px 10px;
     border-radius: 10px;
     margin: 5px 10px 5px 0px;
@@ -172,5 +173,22 @@ li{
 
 .circularProgress{
    width: 50px; 
-   
 }
+
+/* Add Button */
+.addButton{
+    margin-top: 20px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: #349934;
+    font-size: 1.1rem;
+    display: flex;
+}
+
+.plus-sign{
+    margin-right: 10px;
+}
+

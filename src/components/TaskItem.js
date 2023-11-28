@@ -13,7 +13,7 @@ const TaskItem = () => {
         <div className="task-heading flex">
             <div className="taskName">
               <div className="labelColor mr-10"></div>
-              <div className="labelName">Build a javascript project</div>
+              Build a javascript project
             </div>
             <div className="taskTools">
                 <div class="editTools mr-20">
