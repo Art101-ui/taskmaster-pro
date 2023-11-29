@@ -92,6 +92,10 @@ li{
   margin-top: 20px;
 }
 
+.sortWrapper,.filterWrapper{
+    position: relative;
+}
+
 .sort, .filter{
   width: 200px;
   padding: 10px 0;
@@ -101,6 +105,49 @@ li{
   align-items: center;
   justify-content: space-evenly;
 }
+
+.sortItems, .filterItems{
+    position: absolute;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    width: 200px;
+    height: auto;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); 
+    display: none;  
+}
+
+.listItems{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+/* Checkbox */
+.checkbox-round{
+    width: 1.1em;
+    height: 1.1em;
+    background-color: white;
+    padding: 5px;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #90EE90;
+    
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round:checked {
+    background-color: #005CC8;
+    /* border-color: white; */
+    border: 2px solid #90EE90;
+}
+
 
 /* TaskItem */
 .task-content{
@@ -179,7 +226,7 @@ li{
 .addButton{
     margin-top: 20px;
     padding: 15px 20px;
-    border-radius: 15px;
+    border-radius: 30px;
     cursor: pointer;
     border: none;
     color: white;
@@ -191,4 +238,6 @@ li{
 .plus-sign{
     margin-right: 10px;
 }
+
+
 

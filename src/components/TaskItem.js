@@ -7,7 +7,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const TaskItem = () => {
-    let percentage= 22;
+  let percentage= 22;
   return (
     <div className="task-content">
         <div className="task-heading flex">

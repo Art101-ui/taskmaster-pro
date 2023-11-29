@@ -10,6 +10,9 @@ const TodoHome = () => {
         <SearchBar/>
         <SortandFilter/>
         <TaskItem/>
+        <TaskItem/>
+        <TaskItem/>
+        <TaskItem/>
         <AddTaskButton/>
     </div>
   )
