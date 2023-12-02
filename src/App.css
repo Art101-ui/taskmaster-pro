@@ -9,7 +9,7 @@
 body{
     background-color: #f5f5f5;
     line-height: 1.5;
-    font-family: 'Inter',sans-serif;
+    font-family: 'Montserrat',sans-serif;
 }
 
 li{
@@ -37,7 +37,7 @@ li{
     flex-direction: column;
     align-items: center;
     margin: 20px;
-    max-width: 500%;
+    /* max-width: 500px; */
 }
 
 /* SearchBar */
@@ -239,5 +239,94 @@ li{
     margin-right: 10px;
 }
 
+
+
+
+
+
+
+
+/* Add Task Form */
+.addTaskForm{
+    line-height: 1.5;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.addTaskForm .header{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.arrowLeft{
+    font-size: 20px;
+    background-color: white;
+    height: 60%;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header h1{
+    flex: 2;
+    text-align: center;
+}
+
+.form-content{
+    margin: 20px 0;
+}
+
+.form-content input{
+    padding:  15px;
+    font-size: 17px;
+    width: 100%;
+    border-radius: 30px;
+    outline: none;
+    border: 1px solid #ddd;
+}
+
+.form-content h2,.form-content input, .form-content ul{
+    margin-bottom: 15px;
+}
+
+.form-content ul li{
+    background-color: #ddf8dd;
+    padding: 10px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checklist-input{
+    position: relative;
+}
+
+.addChecklist{
+    background-color: #90EE90;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    padding: 8px;
+    position:absolute;
+    right: 18px;
+    top: calc(100% - 90%);
+    /* top: 20%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.form-content .saveTask{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
 
