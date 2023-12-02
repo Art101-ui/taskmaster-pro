@@ -1,19 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import SearchBar from '../components/SearchBar'
 import SortandFilter from '../components/SortandFilter'
 import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
+import AddTaskForm from './AddTaskForm'
 
-const TodoHome = () => {
+const TodoHome = ({onView}) => {
+
   return (
     <div className='todoHome'>
         <SearchBar/>
         <SortandFilter/>
         <TaskItem/>
-        <TaskItem/>
-        <TaskItem/>
-        <TaskItem/>
-        <AddTaskButton/>
+        <AddTaskButton onShow = {onView}/>
     </div>
   )
 }

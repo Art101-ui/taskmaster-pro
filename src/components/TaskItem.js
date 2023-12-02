@@ -16,10 +16,10 @@ const TaskItem = () => {
               Build a javascript project
             </div>
             <div className="taskTools">
-                <div class="editTools mr-20">
+                <div className="editTools mr-20">
                   <CiEdit className='tool'/>
                 </div>
-                <div class="checkmark">
+                <div className="checkmark">
                   <IoMdCheckmark className='tool'/>           
                 </div>
             </div>

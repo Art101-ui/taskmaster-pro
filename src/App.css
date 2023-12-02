@@ -31,6 +31,13 @@ li{
     margin-right: 20px;
 }
 
+.display-block{
+    display: block;
+}
+
+.display-none{
+    display: none;
+}
 
 .todoHome{
     display: flex;
@@ -294,13 +301,22 @@ li{
 }
 
 .form-content ul li{
-    background-color: #ddf8dd;
+    
     padding: 10px;
+    cursor: pointer;
     width: 40px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.checklist-wrapper{
+    background-color: #ddf8dd;
+}
+
+.chosen{
+    background-color:blue;
 }
 
 .checklist-input{
