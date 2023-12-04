@@ -346,3 +346,35 @@ li{
 }
 
 
+/* CheckListItems */
+.checklistItems{
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+}
+
+.checklistItems .item{
+    padding:  10px 10px 10px 15px;
+    font-size: 15px;
+    margin: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+}
+
+.cancel-wrapper{
+    margin-right: 7px;
+    background-color: #F77979;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px;
+}
+
+.cancel{
+    font-size: 20px;
+}
+

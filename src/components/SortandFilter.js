@@ -12,7 +12,6 @@ let sortArray = [
 ]
 
 const SortandFilter = () => {
-  
   let sortItems = sortArray.map((item)=>{
     return (
       <li className='listItems' key={item.id}>{item.name} <input type="checkbox" checked={item.isChecked} className="checkbox-round"/></li>

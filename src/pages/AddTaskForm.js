@@ -1,10 +1,27 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { FaArrowLeft,FaPlus } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 
 
+const AddTaskForm = (props) => {
+  const {taskname, due_date, select_time, checklist,onTaskName, onDueDate, onSelectTime, onChecklist, onTags, priority, onPriority, complexity, onComplexity, onView, onDeleteItem } = props
 
-const AddTaskForm = ({ priority, onPriority, complexity, onComplexity, onView}) => {
+//   state variables
+  const [checklistInput, setChecklistInput] = useState('')
+  const [tagInput, setTagInput] = useState('')
+
+  function handleChecklistInput(e){
+    setChecklistInput(e.target.value)
+  }
+
+  function handleTagInput(e){
+    setTagInput(e.target.value)
+  }
+
+
+//   Priority and Complexity level
   let value= [1,2,3,4,5,6,7,8,9,10]
+
   let valuePriority = value.map(item=>{
     return <li key={item} onClick={e=> {
          onPriority(item)
@@ -21,6 +38,18 @@ const AddTaskForm = ({ priority, onPriority, complexity, onComplexity, onView}) 
     } className={complexity == item ? 'chosen' : 'checklist-wrapper'}>{item}</li>
   })
   
+//   checklist array
+ let checklistArr = checklist.map(item=>{
+    return(
+        <li className='item' key={item}>
+            {item}
+            <div className='cancel-wrapper' onClick={()=>onDeleteItem(item)}>
+              <ImCross className='cancel'/>
+            </div>
+        </li>
+    )
+ })
+
 
   return (
     <div  className='addTaskForm'>
@@ -32,7 +61,7 @@ const AddTaskForm = ({ priority, onPriority, complexity, onComplexity, onView}) 
         </div>
         <div className="form-content">
             <h2>Task Name</h2>
-            <input type="text" className='searchBar'/>
+            <input type="text" className='searchBar' value={taskname} onChange={onTaskName}/>
             <h2>Select Priority Level</h2>
             <ul className='flex'>
                 {valuePriority}
@@ -44,26 +73,28 @@ const AddTaskForm = ({ priority, onPriority, complexity, onComplexity, onView}) 
             <div className="time-content">
                 <div className="due-date">
                     <h2>Select Due Date</h2>
-                    <input type='date'/>
+                    <input type='date' value={due_date} onChange={onDueDate}/>
                 </div>
                 <div className="time">
                     <h2>Select Time</h2>
-                    <input type='time'/>
+                    <input type='time' value={select_time} onChange={onSelectTime}/>
                 </div>
             </div>
             <div className="checklist">
                 <h2>Add Checklist</h2>
                 <div className="checklist-input">
-                  <input type="text"/>
-                  <div className="addChecklist">
-                    <FaPlus className='plus-form'/>
+                  <input type="text" value={checklistInput} onChange={handleChecklistInput}/>
+                  <div className="addChecklist" onClick={()=>{
+                    setChecklistInput('')
+                    onChecklist(checklistInput)}}>
+                    <FaPlus className='plus-form' />
                   </div>
                 </div>
-                <ul></ul>
+                <ul className = 'checklistItems'>{checklistArr}</ul>
             </div>
             <div className="tags">
                 <h2>Add Tags</h2>
-                <input type="text" placeholder='Tag 1,Tag 2....'/>
+                <input type="text" placeholder='Tag 1,Tag 2....' value={tagInput} onChange={handleTagInput}/>
             </div>
             <div className='saveTask'>
             <button className='addButton'>Save Task</button>
