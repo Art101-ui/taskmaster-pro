@@ -4,19 +4,15 @@ import { ImCross } from "react-icons/im";
 
 
 const AddTaskForm = (props) => {
-  const {taskname, due_date, select_time, checklist,onTaskName, onDueDate, onSelectTime, onChecklist, onTags, priority, onPriority, complexity, onComplexity, onView, onDeleteItem } = props
+  const {taskname, due_date, select_time, checklist, tags,onTaskName, onDueDate, onSelectTime, onChecklist, onTags, priority, onPriority, complexity, onComplexity, onView, onDeleteItem, onSave } = props
 
 //   state variables
   const [checklistInput, setChecklistInput] = useState('')
-  const [tagInput, setTagInput] = useState('')
 
   function handleChecklistInput(e){
     setChecklistInput(e.target.value)
   }
 
-  function handleTagInput(e){
-    setTagInput(e.target.value)
-  }
 
 
 //   Priority and Complexity level
@@ -27,7 +23,7 @@ const AddTaskForm = (props) => {
          onPriority(item)
         console.log(priority)
     }
-    } className={priority == item ? 'chosen' : 'checklist-wrapper'}>{item}</li>
+    } className={priority === item ? 'chosen' : 'checklist-wrapper'}>{item}</li>
   });
 
   let valueComplexity = value.map(item=>{
@@ -35,7 +31,7 @@ const AddTaskForm = (props) => {
          onComplexity(item)
         console.log(priority)
     }
-    } className={complexity == item ? 'chosen' : 'checklist-wrapper'}>{item}</li>
+    } className={complexity === item ? 'chosen' : 'checklist-wrapper'}>{item}</li>
   })
   
 //   checklist array
@@ -94,11 +90,13 @@ const AddTaskForm = (props) => {
             </div>
             <div className="tags">
                 <h2>Add Tags</h2>
-                <input type="text" placeholder='Tag 1,Tag 2....' value={tagInput} onChange={handleTagInput}/>
+                <input type="text" placeholder='Tag 1,Tag 2....' value={tags} onChange={onTags}/>
             </div>
-            <div className='saveTask'>
-            <button className='addButton'>Save Task</button>
-
+            <div onClick={() =>{
+              onSave()
+              onView()
+            }} className='saveTask'>
+              <button className='addButton'>Save Task</button>
             </div>
         </div>
     </div>

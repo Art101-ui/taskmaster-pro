@@ -1,20 +1,39 @@
-import {useState} from 'react'
+import {useMemo, useState} from 'react'
 import TodoHome from "./pages/TodoHome";
 import './App.css'
 import AddTaskForm from "./pages/AddTaskForm";
+import { filteredtodos} from './utilis/utilisfn'
 
+
+const initialData = {
+  taskname:'',
+  priority_index:null,
+  complexity_index:null,
+  due_date:'',
+  select_time:'',
+  checklist:[],
+  tags:''
+ }
 function App() {
 
   const [view,setView] = useState(0)
-  const [formData, setformData] = useState({
-    taskname:'',
-    priority_index:null,
-    complexity_index:null,
-    due_date:'',
-    select_time:'',
-    checklist:[],
-    tags:[]
-   })
+  const [formData, setformData] = useState(initialData)
+   const [listformData, setListFormData] = useState([])
+   const [filteredItems, setFilteredItems] = useState([])
+
+   const filteredTodos = useMemo(()=> filteredtodos(listformData,filteredItems),[listformData,filteredItems])
+
+//*************Filter*********************** */  
+   function handleFilterItems(toggle){
+    if(filteredItems.some(item=>item.id===toggle.id)){
+      setFilteredItems(filteredItems.filter(id=> id.id!==toggle.id))
+    }else{
+      setFilteredItems([...filteredItems,toggle])
+    }
+}
+
+
+//************************************ */ 
 
    function handleTaskName(e){
      setformData({
@@ -63,33 +82,45 @@ function App() {
     setformData({
       ...formData,
       checklist: formData.checklist.filter(item=>{
-        return item != value
+        return item !== value
       })
      })
    }
 
-   function handleTags(value){
+   function handleTags(e){
     setformData({
       ...formData,
-      tags:[...formData.tags, value]
+      tags:e.target.value
      })
    }
-  
-  
-  
-   function handleFormData(){  
-     console.log(formData)
+
+
+   function handleFormData(){ 
+     setListFormData([
+      ...listformData,
+      formData
+     ])
+ 
    }
   
-
-
+   function handleSort(value){
+     setListFormData(value)
+   }
 
   return (
     <div className="App">
        {
         view === 0  &&
         <TodoHome
-        onView = {()=>setView(1)}
+        onView = {()=>{
+          setformData(initialData)
+          setView(1)}}
+        listformData = {listformData}
+        filteredTodos={filteredTodos}
+        filteredItems = {filteredItems}
+        onSort = {handleSort}
+        onFilterItems ={handleFilterItems}
+        tags= {formData.tags}
         />
 
        }
@@ -101,6 +132,7 @@ function App() {
          due_date = {formData.due_date}
          select_time = {formData.select_time}
          checklist = {formData.checklist}
+         tags = {formData.tags}
          onTaskName = {handleTaskName}
          onDueDate = {handleDueDate}
          onSelectTime = {handleSelectTime}
@@ -110,14 +142,15 @@ function App() {
          onPriority = {handlePriorityIndex} 
          onComplexity= {handleComplexityIndex} 
          priority={formData.priority_index} 
-         complexity={formData.complexity_index}/>
+         complexity={formData.complexity_index}
+         onSave = {handleFormData}
+         />
       }
-
-    
-       <button onClick={handleFormData}>Display</button>
     </div>
     
   );
 }
 
 export default App;
+
+
