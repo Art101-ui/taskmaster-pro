@@ -1,39 +1,29 @@
-import {useMemo, useState} from 'react'
+import { useState} from 'react'
 import TodoHome from "./pages/TodoHome";
 import './App.css'
 import AddTaskForm from "./pages/AddTaskForm";
-import { filteredtodos} from './utilis/utilisfn'
 
 
-const initialData = {
-  taskname:'',
-  priority_index:null,
-  complexity_index:null,
-  due_date:'',
-  select_time:'',
-  checklist:[],
-  tags:''
- }
+
 function App() {
-
+  
   const [view,setView] = useState(0)
-  const [formData, setformData] = useState(initialData)
-   const [listformData, setListFormData] = useState([])
-   const [filteredItems, setFilteredItems] = useState([])
+  
+  const [listformData, setListFormData] = useState([])
+  const [idCounter, setIdCounter] = useState(0);
+  
+  const initialData = {
+    id:idCounter,
+    taskname:'',
+    priority_index:null,
+    complexity_index:null,
+    due_date:'',
+    select_time:'',
+    checklist:[],
+    tags:''
+   }
 
-   const filteredTodos = useMemo(()=> filteredtodos(listformData,filteredItems),[listformData,filteredItems])
-
-//*************Filter*********************** */  
-   function handleFilterItems(toggle){
-    if(filteredItems.some(item=>item.id===toggle.id)){
-      setFilteredItems(filteredItems.filter(id=> id.id!==toggle.id))
-    }else{
-      setFilteredItems([...filteredItems,toggle])
-    }
-}
-
-
-//************************************ */ 
+   const [formData, setformData] = useState(initialData)
 
    function handleTaskName(e){
      setformData({
@@ -96,16 +86,15 @@ function App() {
 
 
    function handleFormData(){ 
+    setIdCounter(prev=>prev + 1)
      setListFormData([
       ...listformData,
       formData
      ])
  
    }
+
   
-   function handleSort(value){
-     setListFormData(value)
-   }
 
   return (
     <div className="App">
@@ -116,11 +105,8 @@ function App() {
           setformData(initialData)
           setView(1)}}
         listformData = {listformData}
-        filteredTodos={filteredTodos}
-        filteredItems = {filteredItems}
-        onSort = {handleSort}
-        onFilterItems ={handleFilterItems}
         tags= {formData.tags}
+
         />
 
        }

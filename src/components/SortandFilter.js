@@ -11,8 +11,8 @@ let sortArray = [
   {id:6, name:'Descending Priority'},
 ]
 
-const SortandFilter = ({tasklist,onSort,onFilterItems,filteredItems}) => {
-  const [sortId, setSortId] = useState(0)
+const SortandFilter = ({tasklist,onSort,onFilterItems,filteredItems, sortId}) => {
+  
   const [sortDisplay, setSortDisplay] = useState(false)
   const [filterDisplay, setFilterDisplay] = useState(false)
 
@@ -20,17 +20,18 @@ const SortandFilter = ({tasklist,onSort,onFilterItems,filteredItems}) => {
     return (
       <li className='listItems' key={item.id}>{item.name} <input onChange={()=>{
         setSortDisplay(false)
-        handleSort(item.id)
-        setSortId(item.id)}} type="checkbox" checked={item.id === sortId} className="checkbox-round"/></li>
+        onSort(item.id)}} type="checkbox" checked={item.id === sortId} className="checkbox-round"/></li>
     )
   })
 
-  let tagsArray = tasklist.length !== 0 ? tasklist.map(item=>item.tags).join().split(','): []
+  let tagsArray = tasklist.length !== 0 ? tasklist.map((item)=>{
+    return item.tags
+  }).join().split(','): []
   let tagsWithId = tagsArray.map((item,index)=>{
     return {id:index,item:item}
   })
   
-  let filterItems = tagsWithId.length!==0 && tagsWithId.map((item)=>{
+  let filterItems =  tagsWithId.map((item)=>{
     return (
       <li className='listItems' key={item.id}>{item.item} <input onChange={()=>{
         setFilterDisplay(false)
@@ -40,33 +41,7 @@ const SortandFilter = ({tasklist,onSort,onFilterItems,filteredItems}) => {
   })
  
 
-  function handleSort(id){
-    let sortedArr = [...tasklist]
-    let newArr=null;
-    switch (id) {
-      case 1:
-        // newArr = originalArray
-        break;
-      case 2:
-        // newArr.sort(a,b)
-        break;
-      case 3:
-        newArr = sortedArr.sort((a,b)=>a.complexity_index - b.complexity_index)
-        break;
-      case 4:
-        newArr = sortedArr.sort((a,b)=>b.complexity_index - a.complexity_index)
-        break;
-      case 5:
-        newArr = sortedArr.sort((a,b)=>a.priority_index - b.priority_index)
-        break;
-      case 6:
-        newArr = sortedArr.sort((a,b)=>b.priority_index - a.priority_index)
-        break;   
-      default:
-        break;
-    }
-    onSort(newArr)
-  }
+
 
   return (
     <div className='sortFilter'>

@@ -6,7 +6,7 @@ import { filterItems } from '../utilis/utilisfn'
 const SearchBar = ({searchInput,onChange,onSearch}) => {
   return (
     <div className='wrapper'>
-      <input onChange={onChange}  type="text" className='searchBar' placeholder="Search"/>
+      <input onChange={onChange} value={searchInput}  type="text" className='searchBar' placeholder="Search"/>
       <IoSearch className='iconSearch'/>
       <div className='bg-button' onClick={onSearch}>
          <FaArrowRight className='searchButton' />

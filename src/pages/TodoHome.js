@@ -1,31 +1,58 @@
-import React, {useState} from 'react'
+import React, {useMemo,useState} from 'react'
 import SearchBar from '../components/SearchBar'
 import SortandFilter from '../components/SortandFilter'
 import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
-import { filterItems } from '../utilis/utilisfn'
+import { searchItems, filteredtodos, sortedTodos } from '../utilis/utilisfn'
 
-const TodoHome = ({onView,listformData,onSort,onFilterItems,filteredTodos,tags,filteredItems}) => {
+const TodoHome = ({onView,listformData,tags}) => {
+
+  // Search state variable
   const [searchInput, setSearchInput] = useState('')
-
+  const [searchedText, setSearchedText] = useState('')
+  // Sort state variable
+  const [sortId, setSortId] = useState(0)
+  // Filter state variable
+  const [filteredItems, setFilteredItems] = useState([])
+  
+  // search
   function handleChange(e){
-    setSearchInput(e.target.vaue)
+    setSearchInput(e.target.value)
   }
 
-  console.log(searchInput)
+  function handleSearch(value){
+    setSearchedText(value)
+  }
+  
+  // filter
+  function handleFilterItems(toggle){
+    if(filteredItems.some(item=>item.id===toggle.id)){
+      setFilteredItems(filteredItems.filter(id=> id.id!==toggle.id))
+    }else{
+      setFilteredItems([...filteredItems,toggle])
+    }
+}
 
-  let tasklist = filteredTodos.map(item=>{
+// Sort
+   function handleSort(sortId){
+      setSortId(sortId)
+   }
+
+
+
+
+  const filteredTodos = useMemo(()=> filteredtodos(listformData,filteredItems),[listformData,filteredItems])
+  const sortTodos = useMemo(()=> sortedTodos(filteredTodos,sortId),[filteredTodos,sortId])
+  const searchTodos = useMemo(()=> searchItems(sortTodos,searchedText),[sortTodos,searchedText])
+
+  
+  let tasklist = searchTodos.map(item=>{
     return <TaskItem key={item.taskname} item={item} />
   })
-
-  function handleSearch(){
-    tasklist = filterItems(filteredTodos,searchInput)
-  }
-
   return (
     <div className='todoHome'>
-        <SearchBar searchInput={searchInput} onSearch={handleSearch} onChange={handleChange}/>
-        <SortandFilter tags={tags} onSort={onSort} tasklist={listformData} filteredItems = {filteredItems}  onFilterItems={onFilterItems}/>
+        <SearchBar searchInput={searchInput} onSearch={()=>handleSearch(searchInput)} onChange={handleChange}/>
+        <SortandFilter sortId={sortId} tags={tags} onSort={handleSort} tasklist={listformData} filteredItems = {filteredItems}  onFilterItems={handleFilterItems}/>
         {tasklist}
         <AddTaskButton onShow = {onView}/>
     </div>
