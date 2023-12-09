@@ -1,9 +1,11 @@
 function convertDate(date_str) {
-  if(date_str === ' '){
-    return ' '
+  console.log(date_str)
+  if(date_str === ''){
+    return 
   }
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let temp_date = date_str.split("-");
+  console.log(months[Number(temp_date[1]) - 1] + " " + temp_date[2]   + " " + temp_date[0])
   return months[Number(temp_date[1]) - 1] + " " + temp_date[2]   + " " + temp_date[0];
 }
 
@@ -55,5 +57,15 @@ function filteredtodos(items,filteredItems){
   return newArr
  }
 
+ function scalePosition(value){
+   if(value===null || value<=4){
+     return 'Low'
+   }else if(value==5 || value<=7){
+     return 'Moderate'
+   }else{
+     return 'High'
+   }
+ }
 
-export {convertDate, searchItems, filteredtodos, sortedTodos}
+
+export {convertDate, searchItems, filteredtodos, sortedTodos, scalePosition}

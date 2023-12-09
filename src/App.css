@@ -31,6 +31,14 @@ li{
     margin-right: 20px;
 }
 
+.bg-white{
+    background-color: #ffffff;
+}
+
+.bg-green{
+    background-color: #cce7cc;
+}
+
 .display-block{
     display: block;
 }
@@ -162,8 +170,8 @@ li{
     width: 500px;
     margin-top: 20px;
     padding: 20px;
-    background-color: #ffffff; 
     border-radius: 10px;
+    cursor: pointer;
 }
 
 

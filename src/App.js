@@ -13,7 +13,6 @@ function App() {
   const [idCounter, setIdCounter] = useState(0);
   
   const initialData = {
-    id:idCounter,
     taskname:'',
     priority_index:null,
     complexity_index:null,
@@ -84,16 +83,41 @@ function App() {
      })
    }
 
+   function handleUpdateData(toggleId){
+    setListFormData(
+      listformData.map(item=>{
+        if(item.id === toggleId){
+          return {...item, ...formData}
+        }else{
+          return item
+        }
+      })
+    )
 
-   function handleFormData(){ 
-    setIdCounter(prev=>prev + 1)
-     setListFormData([
-      ...listformData,
-      formData
-     ])
- 
+     setformData(initialData)
    }
 
+
+   function handleFormData(){ 
+    const newTask = {id: idCounter , ...formData}
+    setIdCounter(prev=>prev + 1) 
+    setListFormData([...listformData,newTask])
+    setformData(initialData)
+   }
+
+  //  formData
+const [title,setTitle] = useState('add')
+  function handleView(viewId,changeText){
+     if(viewId === 0 && changeText===null){
+      setView(0)
+     }else if(viewId === 1 && changeText ==='edit'){
+       setView(1)
+       setTitle('edit')
+     }else if(viewId === 1 && changeText ==='add'){
+       setView(1)
+       setTitle('add')
+     }
+  }
   
 
   return (
@@ -101,19 +125,21 @@ function App() {
        {
         view === 0  &&
         <TodoHome
-        onView = {()=>{
-          setformData(initialData)
-          setView(1)}}
+        onView = {handleView}
         listformData = {listformData}
         tags= {formData.tags}
-
+        editformData ={(value)=>setformData(value)}
         />
 
        }
       {
         view === 1 && 
         <AddTaskForm 
-         onView = {()=>setView(0)}
+         title = {title}
+         onView = {()=>{
+          setformData(initialData)
+          handleView(0,null)}}
+          id={formData.id}
          taskname = {formData.taskname}
          due_date = {formData.due_date}
          select_time = {formData.select_time}
@@ -130,6 +156,7 @@ function App() {
          priority={formData.priority_index} 
          complexity={formData.complexity_index}
          onSave = {handleFormData}
+         onUpdate = {handleUpdateData}
          />
       }
     </div>

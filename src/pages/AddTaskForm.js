@@ -4,7 +4,7 @@ import { ImCross } from "react-icons/im";
 
 
 const AddTaskForm = (props) => {
-  const {taskname, due_date, select_time, checklist, tags,onTaskName, onDueDate, onSelectTime, onChecklist, onTags, priority, onPriority, complexity, onComplexity, onView, onDeleteItem, onSave } = props
+  const {id,taskname, due_date, select_time, checklist, tags,onTaskName, onDueDate, onSelectTime, onChecklist, onTags, priority, onPriority, complexity, onComplexity, onView, onDeleteItem, onSave, onUpdate, title } = props
 
 //   state variables
   const [checklistInput, setChecklistInput] = useState('')
@@ -53,7 +53,7 @@ const AddTaskForm = (props) => {
             <div onClick={onView} className='arrowLeft'>
                <FaArrowLeft />
             </div>
-            <h1>Add New Task</h1>
+            <h1>{title === 'edit' ? 'Edit Task' : 'Add New Task'}</h1>
         </div>
         <div className="form-content">
             <h2>Task Name</h2>
@@ -92,12 +92,24 @@ const AddTaskForm = (props) => {
                 <h2>Add Tags</h2>
                 <input type="text" placeholder='Tag 1,Tag 2....' value={tags} onChange={onTags}/>
             </div>
-            <div onClick={() =>{
-              onSave()
-              onView()
-            }} className='saveTask'>
-              <button className='addButton'>Save Task</button>
-            </div>
+             {
+              title === 'edit' 
+              && <div onClick={()=>{
+                onUpdate(id)
+                onView()
+              }} className='saveTask'>
+                <button className='addButton'>Update Task</button>
+              </div>
+             }
+             {
+              title === 'add'
+              && <div onClick={()=>{
+                onSave()
+                onView()
+              }} className='saveTask'>
+                <button className='addButton'>Save Task</button>
+              </div>
+             }
         </div>
     </div>
   )
