@@ -7,13 +7,15 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { convertDate, scalePosition } from '../utilis/utilisfn';
 
-const TaskItem = ({item,onEditTask}) => {
+const TaskItem = ({item,onEditTask, onView}) => {
   let percentage= 25;
 
   const [done,setDone] = useState(false)
 
+  const [view,setView] = useState(0)
+
   return (
-    <div  className={(done ? 'bg-green' : 'bg-white') +" task-content"}>
+    <div  className={(done ? 'bg-green' : 'bg-white') +" task-content cursor-pointer"} onClick={()=>onView(2,null)}>
         <div className="task-heading flex">
             <div className="taskName">
               <div className="labelColor mr-10"></div>

@@ -51,7 +51,7 @@ const TodoHome = ({onView,listformData,tags,editformData}) => {
   }
  
   let tasklist = searchTodos.map(item=>{
-    return <TaskItem onEditTask={()=>editTask(item)}  key={item.id} item={item} />
+    return <TaskItem onEditTask={()=>editTask(item)} onView={onView}  key={item.id} item={item} />
   })
 
   return (

@@ -2,12 +2,13 @@ import { useState} from 'react'
 import TodoHome from "./pages/TodoHome";
 import './App.css'
 import AddTaskForm from "./pages/AddTaskForm";
+import DetailPage from './pages/DetailPage';
 
 
 
 function App() {
   
-  const [view,setView] = useState(0)
+  const [view,setView] = useState(2)
   
   const [listformData, setListFormData] = useState([])
   const [idCounter, setIdCounter] = useState(0);
@@ -116,6 +117,9 @@ const [title,setTitle] = useState('add')
      }else if(viewId === 1 && changeText ==='add'){
        setView(1)
        setTitle('add')
+     }else if(viewId === 2 && changeText ===null){
+       setView(2)
+       
      }
   }
   
@@ -158,6 +162,12 @@ const [title,setTitle] = useState('add')
          onSave = {handleFormData}
          onUpdate = {handleUpdateData}
          />
+      }
+      {
+        view === 2 &&
+        <DetailPage
+          onView = {handleView}
+        />
       }
     </div>
     

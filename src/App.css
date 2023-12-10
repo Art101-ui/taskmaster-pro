@@ -31,6 +31,22 @@ li{
     margin-right: 20px;
 }
 
+.mb-10{
+    margin-bottom: 10px;
+}
+
+.mb-15{
+    margin-bottom: 15px;
+}
+
+.font-bold{
+    font-weight: 600;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
 .bg-white{
     background-color: #ffffff;
 }
@@ -171,7 +187,6 @@ li{
     margin-top: 20px;
     padding: 20px;
     border-radius: 10px;
-    cursor: pointer;
 }
 
 
@@ -239,7 +254,7 @@ li{
 }
 
 /* Add Button */
-.addButton{
+.addButton, .detailButton{
     margin-top: 20px;
     padding: 15px 20px;
     border-radius: 30px;
@@ -254,11 +269,6 @@ li{
 .plus-sign{
     margin-right: 10px;
 }
-
-
-
-
-
 
 
 
@@ -348,7 +358,7 @@ li{
     font-size: 20px;
 }
 
-.form-content .saveTask{
+.form-content .saveTask, .repeat, .delete{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -369,11 +379,12 @@ li{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-radius: 30px;
     border: 1px solid #ddd;
 }
 
-.cancel-wrapper{
+.cancel-wrappe,.done-wrapper{
     margin-right: 7px;
     background-color: #F77979;
     border-radius: 50%;
@@ -383,7 +394,74 @@ li{
     padding: 7px;
 }
 
-.cancel{
+.cancel,.done{
     font-size: 20px;
 }
+
+/* Detail Page */
+.detailPage{
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 20px auto;
+    
+}
+
+.detail-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-heading h1{
+    font-size: 30px;
+}
+
+.back-button,.edit-button{
+    font-size: 20px;
+    background-color: #cce7cc;
+    height: 60%;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.detailPage .task-content{
+    /* font-size: 20px; */
+}
+
+.font-22{
+    font-size: 22px;
+}
+
+.font-18{
+    font-size: 18px;
+}
+
+.progress-bar{
+    width: 100%;
+    font-size: 30px;
+}
+
+.done-wrapper{
+    background-color: #cde7f8;
+}
+
+.repeatButton, .deleteButton{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.repeatButton{
+    background-color: #005CC8;
+}
+
+.deleteButton{
+    background-color: #F77979;
+}
+
 
