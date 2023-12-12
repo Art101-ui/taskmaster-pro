@@ -384,7 +384,7 @@ li{
     border: 1px solid #ddd;
 }
 
-.cancel-wrappe,.done-wrapper{
+.cancel-wrapper,.done-wrapper{
     margin-right: 7px;
     background-color: #F77979;
     border-radius: 50%;
@@ -428,10 +428,6 @@ li{
     cursor: pointer;
 }
 
-.detailPage .task-content{
-    /* font-size: 20px; */
-}
-
 .font-22{
     font-size: 22px;
 }
@@ -464,4 +460,7 @@ li{
     background-color: #F77979;
 }
 
+.bg-blue{
+    background-color: blue;
+}
 

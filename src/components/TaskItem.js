@@ -5,17 +5,19 @@ import { TiArrowMove } from "react-icons/ti";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { convertDate, scalePosition } from '../utilis/utilisfn';
+import { convertDate, scalePosition, getTaskProgress } from '../utilis/utilisfn';
 
-const TaskItem = ({item,onEditTask, onView}) => {
-  let percentage= 25;
-
+const TaskItem = ({item,onEditTask, onView, onDetailTask}) => {
   const [done,setDone] = useState(false)
 
-  const [view,setView] = useState(0)
-
+  
+  let value = getTaskProgress(item.selectedItemIds, item.checklist)
   return (
-    <div  className={(done ? 'bg-green' : 'bg-white') +" task-content cursor-pointer"} onClick={()=>onView(2,null)}>
+    <div  className={(done ? 'bg-green' : 'bg-white') +" task-content cursor-pointer"} onClick={()=>{
+      onDetailTask(item)
+      onView(2,null)
+      console.log(item)
+      }}>
         <div className="task-heading flex">
             <div className="taskName">
               <div className="labelColor mr-10"></div>
@@ -42,7 +44,7 @@ const TaskItem = ({item,onEditTask, onView}) => {
                 <div><TiArrowMove/> Complexity: {scalePosition(item.complexity_index)} ({item.complexity_index==null ? 0 : item.complexity_index}/10) </div>
             </div>
             <div>
-              <CircularProgressbar className='circularProgress' value={percentage} text={`${percentage}%`} styles={buildStyles({textSize:"30px",pathColor:"green",textColor:"#181818",trailColor:"#ddf8dd"},)}/>
+              <CircularProgressbar className='circularProgress' value={value*100} text={`${value*100}%`} styles={buildStyles({textSize:"30px",pathColor:"green",textColor:"#181818",trailColor:"#ddf8dd"},)}/>
             </div>
         </div>
         <ul className="tags">

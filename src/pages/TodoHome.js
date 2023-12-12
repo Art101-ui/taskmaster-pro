@@ -5,7 +5,7 @@ import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
 import { searchItems, filteredtodos, sortedTodos } from '../utilis/utilisfn'
 
-const TodoHome = ({onView,listformData,tags,editformData}) => {
+const TodoHome = ({onView,listformData,tags,editformData,detailTodoData}) => {
 
   // Search state variable
   const [searchInput, setSearchInput] = useState('')
@@ -49,9 +49,10 @@ const TodoHome = ({onView,listformData,tags,editformData}) => {
      onView(1,'edit')
      editformData(item)
   }
+  
  
   let tasklist = searchTodos.map(item=>{
-    return <TaskItem onEditTask={()=>editTask(item)} onView={onView}  key={item.id} item={item} />
+    return <TaskItem onDetailTask={detailTodoData} onEditTask={()=>editTask(item)} onView={onView}  key={item.id} item={item} />
   })
 
   return (

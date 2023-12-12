@@ -83,7 +83,7 @@ const AddTaskForm = (props) => {
                   <div className="addChecklist" onClick={()=>{
                     setChecklistInput('')
                     onChecklist(checklistInput)}}>
-                    <FaPlus className='plus-form' />
+                    <FaPlus className='plus-form'/>
                   </div>
                 </div>
                 <ul className = 'checklistItems'>{checklistArr}</ul>

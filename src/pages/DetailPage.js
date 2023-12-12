@@ -6,16 +6,39 @@ import { MdDelete } from "react-icons/md";
 import { IoMdCheckmark, IoMdArrowUp } from "react-icons/io";
 import { TiArrowMove } from "react-icons/ti";
 import { MdOutlineDateRange } from "react-icons/md";
+import { convertDate, scalePosition, getTaskProgress } from '../utilis/utilisfn';
 
-const DetailPage = ({onView}) => {
+const DetailPage = ({onView,item, onSelectedIds}) => {
+     
+    let value = getTaskProgress(item.selectedItemIds, item.checklist)
+
+    console.log(item.selectedItemIds)
+    let checklistArrId = item.checklist.map((item,index)=>{
+        return {id: index++,item:item}
+    })
+
+    let checklistArr = checklistArrId.map(a=>{
+        return(
+            <li className='item  cursor-pointer' key={a.id} onClick={()=>{
+                console.log(item.selectedItemIds)
+                onSelectedIds(item,a.id)
+            }}>
+                {a.item}
+                <div className={(item.selectedItemIds.includes(a.id) && 'bg-blue') + ' done-wrapper'} >
+                  <IoMdCheckmark className='done'/>
+                </div>
+            </li>
+        )
+    })
+
   return (
     <div className='detailPage '>
         <div className="detail-heading">
-          <div className="back-button">
+          <div className="back-button" onClick={()=>onView(0,null)}>
              <FaArrowLeft/>
           </div>
           <h1>Task Details</h1>
-          <div className="edit-button">
+          <div className="edit-button" onClick={()=>onView(1,'edit')}>
              <CiEdit/>
           </div>
         </div>
@@ -23,45 +46,39 @@ const DetailPage = ({onView}) => {
         <div  className= "task-content bg-white mb-15">
             <div className="task-heading flex mb-15">
                 <div className="taskName font-22">
-                <div className="labelColor mr-10"></div>
-                    New Item
-                    {/* {item.taskname} */}
+                <div className="labelColor mr-10"></div>         
+                    {item.taskname}
                 </div>
             </div>
             <div className="task-body mb-15 ">
                 <div className="task-info font-18">
-                    <div className='mb-10'><MdOutlineDateRange/> Due Date: date 
-                    {/* {convertDate(item.due_date) === undefined && item.select_time === '' ?'': convertDate(item.due_date) + ','+ item.select_time}  */}
+                    <div className='mb-10'><MdOutlineDateRange/> Due Date:  
+                    {convertDate(item.due_date) === undefined && item.select_time === '' ?'': convertDate(item.due_date) + ','+ item.select_time} 
                     </div>
-                    <div className='mb-10'><IoMdArrowUp/> Priority: priority
-                    {/* {scalePosition(item.priority_index)} ({item.priority_index==null ? 0 : item.priority_index}/10) */}
+                    <div className='mb-10'><IoMdArrowUp/> Priority: 
+                    {scalePosition(item.priority_index)} ({item.priority_index==null ? 0 : item.priority_index}/10)
                     </div>
-                    <div className='mb-10'><TiArrowMove/> Complexity: complexity
-                    {/* {scalePosition(item.complexity_index)} ({item.complexity_index==null ? 0 : item.complexity_index}/10)  */}
+                    <div className='mb-10'><TiArrowMove/> Complexity: 
+                    {scalePosition(item.complexity_index)} ({item.complexity_index==null ? 0 : item.complexity_index}/10) 
                     </div>
                 </div>
             </div>
-            <div class="task-complete flex">
+            <div className="task-complete flex">
                 <h3>Task Complete</h3>
-                <h3>50%</h3>
+                <h3>{value * 100}%</h3>
             </div>
-            <div class="progress-wrapper">
-                <progress className='progress-bar' value={0.5} max={1} />
+            <div className="progress-wrapper">
+                <progress className='progress-bar' value={value} max={1} />
             </div>
         </div>
         <ul className='checklistItems'>
           <p className='font-bold'>Checklist for subtask</p>
-          <li className='item' >
-            new Item
-            <div className='done-wrapper cursor-pointer' >
-              <IoMdCheckmark className='done'/>
-            </div>
-        </li>
+          {checklistArr}
         </ul>
         <div className='repeat'>
           <button className='detailButton repeatButton'><FiRepeat className='mr-10'/>Repeat Task</button>
         </div>
-        <div className='delete'>
+        <div className='delete' onClick={()=>onView(0,null)}>
           <button className='detailButton deleteButton'><MdDelete className='mr-10'/>Delete Task</button>
         </div>
     </div>

@@ -6,13 +6,8 @@ import DetailPage from './pages/DetailPage';
 
 
 
+
 function App() {
-  
-  const [view,setView] = useState(2)
-  
-  const [listformData, setListFormData] = useState([])
-  const [idCounter, setIdCounter] = useState(0);
-  
   const initialData = {
     taskname:'',
     priority_index:null,
@@ -20,9 +15,13 @@ function App() {
     due_date:'',
     select_time:'',
     checklist:[],
+    selectedItemIds:[],
     tags:''
    }
-
+  
+  const [view,setView] = useState(2)
+  const [listformData, setListFormData] = useState([])
+  const [idCounter, setIdCounter] = useState(0);
    const [formData, setformData] = useState(initialData)
 
    function handleTaskName(e){
@@ -108,9 +107,11 @@ function App() {
 
   //  formData
 const [title,setTitle] = useState('add')
-  function handleView(viewId,changeText){
+
+function handleView(viewId,changeText){
      if(viewId === 0 && changeText===null){
       setView(0)
+      setformData(initialData)
      }else if(viewId === 1 && changeText ==='edit'){
        setView(1)
        setTitle('edit')
@@ -122,7 +123,28 @@ const [title,setTitle] = useState('add')
        
      }
   }
-  
+
+  //*********Subtask selectedIds********************/ 
+  function handleSelectedIds(todo,toggleId){ 
+    setListFormData(
+      listformData.map(item=>{
+        if(item.id === todo.id){
+          console.log(item)
+          let updatedItem = {
+            ...item, 
+            selectedItemIds: item.selectedItemIds.includes(toggleId) ? item.selectedItemIds.filter(id=>id!== toggleId) : [...item.selectedItemIds,toggleId]}
+          setformData(updatedItem)
+          return updatedItem
+        }else{
+          return item
+        }
+      })
+    ) 
+    
+  }
+
+  // **************************************************
+ 
 
   return (
     <div className="App">
@@ -133,6 +155,8 @@ const [title,setTitle] = useState('add')
         listformData = {listformData}
         tags= {formData.tags}
         editformData ={(value)=>setformData(value)}
+        detailTodoData ={(value)=>setformData(value)
+        }
         />
 
        }
@@ -141,7 +165,6 @@ const [title,setTitle] = useState('add')
         <AddTaskForm 
          title = {title}
          onView = {()=>{
-          setformData(initialData)
           handleView(0,null)}}
           id={formData.id}
          taskname = {formData.taskname}
@@ -167,6 +190,9 @@ const [title,setTitle] = useState('add')
         view === 2 &&
         <DetailPage
           onView = {handleView}
+          item ={formData}
+          onSelectedIds = {handleSelectedIds}
+        
         />
       }
     </div>

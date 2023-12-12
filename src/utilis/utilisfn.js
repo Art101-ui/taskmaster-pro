@@ -60,12 +60,22 @@ function filteredtodos(items,filteredItems){
  function scalePosition(value){
    if(value===null || value<=4){
      return 'Low'
-   }else if(value==5 || value<=7){
+   }else if(value===5 || value<=7){
      return 'Moderate'
    }else{
      return 'High'
    }
  }
 
+ function getTaskProgress(selectArr,checklistArr){
+  let value = null
+  if(selectArr.length=== 0 && checklistArr.length === 0){
+    value = 0
+  }else{
+    value = (selectArr.length / checklistArr.length).toFixed(2)
+  }
+  return value
+ }
 
-export {convertDate, searchItems, filteredtodos, sortedTodos, scalePosition}
+
+export {convertDate, searchItems, filteredtodos, sortedTodos, scalePosition, getTaskProgress}
