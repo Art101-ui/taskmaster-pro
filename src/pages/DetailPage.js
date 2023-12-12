@@ -8,7 +8,7 @@ import { TiArrowMove } from "react-icons/ti";
 import { MdOutlineDateRange } from "react-icons/md";
 import { convertDate, scalePosition, getTaskProgress } from '../utilis/utilisfn';
 
-const DetailPage = ({onView,item, onSelectedIds}) => {
+const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
      
     let value = getTaskProgress(item.selectedItemIds, item.checklist)
 
@@ -75,10 +75,12 @@ const DetailPage = ({onView,item, onSelectedIds}) => {
           <p className='font-bold'>Checklist for subtask</p>
           {checklistArr}
         </ul>
-        <div className='repeat'>
+        <div className='repeat' onClick={()=>onRepeatTask(item)}>
           <button className='detailButton repeatButton'><FiRepeat className='mr-10'/>Repeat Task</button>
         </div>
-        <div className='delete' onClick={()=>onView(0,null)}>
+        <div className='delete' onClick={()=>{
+            onDeleteTask(item)
+            onView(0,null)}}>
           <button className='detailButton deleteButton'><MdDelete className='mr-10'/>Delete Task</button>
         </div>
     </div>

@@ -129,7 +129,6 @@ function handleView(viewId,changeText){
     setListFormData(
       listformData.map(item=>{
         if(item.id === todo.id){
-          console.log(item)
           let updatedItem = {
             ...item, 
             selectedItemIds: item.selectedItemIds.includes(toggleId) ? item.selectedItemIds.filter(id=>id!== toggleId) : [...item.selectedItemIds,toggleId]}
@@ -141,6 +140,27 @@ function handleView(viewId,changeText){
       })
     ) 
     
+  }
+  function handleRepeatTask(todo){ 
+    setListFormData(
+      listformData.map(item=>{
+        if(item.id === todo.id){
+          let updatedItem = {
+            ...item, 
+            selectedItemIds: []}
+          setformData(updatedItem)
+          return updatedItem
+        }else{
+          return item
+        }
+      })
+    )   
+  }
+
+  function handleDeleteTask(todo){ 
+    setListFormData(
+      listformData.filter(item=>item.id !== todo.id)
+    )   
   }
 
   // **************************************************
@@ -192,6 +212,8 @@ function handleView(viewId,changeText){
           onView = {handleView}
           item ={formData}
           onSelectedIds = {handleSelectedIds}
+          onRepeatTask = {handleRepeatTask}
+          onDeleteTask = {handleDeleteTask}
         
         />
       }
