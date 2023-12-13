@@ -16,27 +16,36 @@ const SortandFilter = ({tasklist,onSort,onFilterItems,filteredItems, sortId}) =>
   const [sortDisplay, setSortDisplay] = useState(false)
   const [filterDisplay, setFilterDisplay] = useState(false)
 
-  let sortItems = sortArray.map((item)=>{
+  let sortItems = sortArray.map((item,index,arr)=>{
     return (
-      <li className='listItems' key={item.id}>{item.name} <input onChange={()=>{
-        setSortDisplay(false)
-        onSort(item.id)}} type="checkbox" checked={item.id === sortId} className="checkbox-round"/></li>
+      <div key={item.id}>
+        <li className='listItems'>{item.name} <input onChange={()=>{
+          setSortDisplay(false)
+          onSort(item.id)}} type="checkbox" checked={item.id === sortId} className="checkbox-round"/>
+          </li>
+          {index < arr.length-1 && <hr/>}
+      </div>       
     )
   })
 
   let tagsArray = tasklist.length !== 0 ? tasklist.map((item)=>{
     return item.tags
   }).join().split(','): []
+
   let tagsWithId = tagsArray.map((item,index)=>{
     return {id:index,item:item}
   })
   
-  let filterItems =  tagsWithId.map((item)=>{
-    return (
-      <li className='listItems' key={item.id}>{item.item} <input onChange={()=>{
-        setFilterDisplay(false)
-        onFilterItems(item) 
-      }} type="checkbox" checked={filteredItems.some(i =>i.id===item.id)} className="checkbox"/></li>
+  let filterItems =  tagsWithId.map((item,index,arr)=>{
+    return (    
+     item.item !== '' && 
+     <div key={item.id}>
+       <li className='listItems' >{item.item} <input onChange={()=>{
+          setFilterDisplay(false)
+          onFilterItems(item) 
+        }} type="checkbox" checked={filteredItems.some(i =>i.id===item.id)} className="checkbox"/></li>
+       {index < arr.length-1 && <hr/>}
+     </div>
     )
   })
  

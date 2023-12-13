@@ -1,7 +1,6 @@
 function convertDate(date_str) {
-  console.log(date_str)
   if(date_str === ''){
-    return 
+    return ''
   }
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let temp_date = date_str.split("-");
@@ -35,8 +34,11 @@ function filteredtodos(items,filteredItems){
     case 0:
       newArr = sortedArr
       break;
+    case 1:
+      newArr = sortedArr.sort((a,b)=>new Date(a.due_date) - new Date(b.due_date))
+      break;
     case 2:
-      // newArr.sort(a,b)
+      newArr = sortedArr.sort((a,b)=>new Date(b.due_date) - new Date(a.due_date))
       break;
     case 3:
       newArr = sortedArr.sort((a,b)=>a.complexity_index - b.complexity_index)
@@ -78,4 +80,45 @@ function filteredtodos(items,filteredItems){
  }
 
 
-export {convertDate, searchItems, filteredtodos, sortedTodos, scalePosition, getTaskProgress}
+ function getTime(value){
+  if(value ===''){
+    return ''
+  }
+   const [hours, minutes] = value.split(':')
+
+   let amPm='AM'
+   let displayHours = parseInt(hours,10)
+
+   if(displayHours > 12){
+    displayHours -= 12;
+    amPm = 'PM'
+   }
+
+   return `${displayHours}:${minutes} ${amPm}`
+ }
+
+ function deadline(value){
+  
+    let timeNow = new Date()
+    let timeDifference = new Date(value) - timeNow
+
+    const daysRemaining = Math.ceil(timeDifference/(1000 * 60 * 60 * 24))
+
+    return daysRemaining
+ 
+ }
+
+ function deadlineColor(value,a,b,c){
+  let className = ''
+    if(value > 3){
+      className = a
+    }else if(value === 3){
+      className = b
+    }else if(value <= 1){
+      className = c
+    }
+    return className
+ }
+ 
+
+export {convertDate, searchItems, filteredtodos, sortedTodos, scalePosition, getTaskProgress, getTime,deadline,deadlineColor}

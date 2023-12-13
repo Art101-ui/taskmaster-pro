@@ -12,7 +12,6 @@ const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
      
     let value = getTaskProgress(item.selectedItemIds, item.checklist)
 
-    console.log(item.selectedItemIds)
     let checklistArrId = item.checklist.map((item,index)=>{
         return {id: index++,item:item}
     })
@@ -20,7 +19,6 @@ const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
     let checklistArr = checklistArrId.map(a=>{
         return(
             <li className='item  cursor-pointer' key={a.id} onClick={()=>{
-                console.log(item.selectedItemIds)
                 onSelectedIds(item,a.id)
             }}>
                 {a.item}

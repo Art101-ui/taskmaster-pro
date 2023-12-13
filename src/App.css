@@ -55,6 +55,38 @@ li{
     background-color: #cce7cc;
 }
 
+.bg-orange{
+    background-color: orange;
+}
+
+.bg-mediumgreen{
+    background-color: #90EE90;
+}
+
+.bg-lightgreen{
+    background-color: #ddf8dd;
+}
+
+.bg-mediumred{
+    background-color: rgb(247, 131, 131);
+}
+
+.bg-lightred{
+    background-color: rgb(245, 216, 216);
+}
+
+.text-darkgreen{
+    color: #0c8f0c;
+}
+
+.text-orange{
+    color: orange ;
+}
+
+.text-red{
+    color: red ;
+}
+
 .display-block{
     display: block;
 }
@@ -203,7 +235,6 @@ li{
 }
 
 .labelColor{
-  background-color: #90EE90;
   height: 20px;
   width: 20px;
   border-radius: 50%;
@@ -217,7 +248,6 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ddf8dd;
     border-radius: 50%;
     height: 25px;
     width: 25px;
@@ -241,8 +271,7 @@ li{
     flex-wrap: wrap;
     
 }
-.tags li{
-    background-color: #ddf8dd;
+.tags .listTags{
     font-size: 12px;
     padding: 5px 10px;
     border-radius: 10px;
