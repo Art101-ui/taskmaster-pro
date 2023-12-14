@@ -5,7 +5,7 @@ import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
 import { searchItems, filteredtodos, sortedTodos } from '../utilis/utilisfn'
 
-const TodoHome = ({onView,listformData,tags,editformData,detailTodoData}) => {
+const TodoHome = ({onView,listformData,selectedId,onSelectedIdChange}) => {
 
   // Search state variable
   const [searchInput, setSearchInput] = useState('')
@@ -45,22 +45,18 @@ const TodoHome = ({onView,listformData,tags,editformData,detailTodoData}) => {
   const searchTodos = useMemo(()=> searchItems(sortTodos,searchedText),[sortTodos,searchedText])
 
 
-  function editTask(item){
-     onView(1,'edit')
-     editformData(item)
-  }
-  
+ 
  
   let tasklist = searchTodos.map(item=>{
-    return <TaskItem onDetailTask={detailTodoData} onEditTask={()=>editTask(item)} onView={onView}  key={item.id} item={item} />
+    return <TaskItem onView={onView}  key={item.id} item={item}  onSelectedIdChange={onSelectedIdChange} />
   })
 
   return (
     <div className='todoHome'>
         <SearchBar searchInput={searchInput} onSearch={()=>handleSearch(searchInput)} onChange={handleChange}/>
-        <SortandFilter sortId={sortId} tags={tags} onSort={handleSort} tasklist={listformData} filteredItems = {filteredItems}  onFilterItems={handleFilterItems}/>
+        <SortandFilter sortId={sortId} onSort={handleSort} tasklist={listformData} filteredItems = {filteredItems}  onFilterItems={handleFilterItems}/>
         {tasklist}
-        <AddTaskButton onShow = {()=>onView(1,'add')}/>
+        <AddTaskButton onSelectedIdChange={onSelectedIdChange} onShow = {()=>onView(1,'add')}/>
     </div>
   )
 }

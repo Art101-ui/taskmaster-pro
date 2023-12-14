@@ -55,16 +55,20 @@ li{
     background-color: #cce7cc;
 }
 
-.bg-orange{
-    background-color: orange;
+.bg-lightorange{
+    background-color: rgb(245, 230, 203);
 }
 
-.bg-mediumgreen{
-    background-color: #90EE90;
+.bg-mediumorange{
+    background-color: rgb(240, 213, 163);
 }
 
 .bg-lightgreen{
     background-color: #ddf8dd;
+}
+
+.bg-mediumgreen{
+    background-color: #90EE90;
 }
 
 .bg-mediumred{

@@ -98,7 +98,9 @@ function filteredtodos(items,filteredItems){
  }
 
  function deadline(value){
-  
+    if(value == ''){
+      return 
+    }
     let timeNow = new Date()
     let timeDifference = new Date(value) - timeNow
 
@@ -109,16 +111,44 @@ function filteredtodos(items,filteredItems){
  }
 
  function deadlineColor(value,a,b,c){
-  let className = ''
-    if(value > 3){
+  let className = ''   
+    if(value===undefined){
       className = a
-    }else if(value === 3){
+    }else if(value > 3){
+      className = a
+    }else if(value > 1 && value <= 3){
       className = b
     }else if(value <= 1){
       className = c
     }
     return className
  }
+
+ function textColor(value,a,b,c){
+  let className = ''
+    if(value > 3){
+      className = a
+    }else if(value > 1 && value <= 3){
+      className = b
+    }else if(value <= 1){
+      className = c
+    }
+    return className
+ }
+
+ let pathColor = (value,a,b,c)=>{
+  let color = ''
+  if(value===undefined){
+    color = a
+  }else if(value > 3){
+     color = a
+   }else if(value > 1 && value <= 3){
+     color = b
+   }else if(value <= 1){
+      color = c
+   }
+   return color
+}
  
 
-export {convertDate, searchItems, filteredtodos, sortedTodos, scalePosition, getTaskProgress, getTime,deadline,deadlineColor}
+export {convertDate, searchItems, filteredtodos, sortedTodos, scalePosition, getTaskProgress, getTime,deadline,deadlineColor, textColor, pathColor}

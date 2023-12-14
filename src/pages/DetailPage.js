@@ -6,13 +6,13 @@ import { MdDelete } from "react-icons/md";
 import { IoMdCheckmark, IoMdArrowUp } from "react-icons/io";
 import { TiArrowMove } from "react-icons/ti";
 import { MdOutlineDateRange } from "react-icons/md";
-import { convertDate, scalePosition, getTaskProgress } from '../utilis/utilisfn';
+import { convertDate, scalePosition, getTaskProgress, getTime, deadline, deadlineColor, textColor,  } from '../utilis/utilisfn';
 
 const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
      
-    let value = getTaskProgress(item.selectedItemIds, item.checklist)
+    let value = getTaskProgress(item.selectedItemIds, item.checklistArr)
 
-    let checklistArrId = item.checklist.map((item,index)=>{
+    let checklistArrId = item.checklistArr.map((item,index)=>{
         return {id: index++,item:item}
     })
 
@@ -29,6 +29,13 @@ const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
         )
     })
 
+    let due_date = convertDate(item.due_date) === '' ? 'No Set Date' : convertDate(item.due_date)
+    let select_time = getTime(item.select_time) === '' ? '' : `, ${getTime(item.select_time)}`
+    
+    
+    let priority_position = scalePosition(item.priority_index)
+    let complexity_position = scalePosition(item.complexity_index)
+
   return (
     <div className='detailPage '>
         <div className="detail-heading">
@@ -40,24 +47,22 @@ const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
              <CiEdit/>
           </div>
         </div>
-        {/* {(done ? 'bg-green' : 'bg-white') +" task-content"} */}
         <div  className= "task-content bg-white mb-15">
             <div className="task-heading flex mb-15">
                 <div className="taskName font-22">
-                <div className="labelColor mr-10"></div>         
+                <div className={deadlineColor(deadline(item.due_date),'bg-mediumgreen','bg-mediumorange','bg-mediumred')+" labelColor mr-10"}></div>         
                     {item.taskname}
                 </div>
             </div>
             <div className="task-body mb-15 ">
                 <div className="task-info font-18">
-                    <div className='mb-10'><MdOutlineDateRange/> Due Date:  
-                    {convertDate(item.due_date) === undefined && item.select_time === '' ?'': convertDate(item.due_date) + ','+ item.select_time} 
+                    <div className='mb-10'><MdOutlineDateRange/> Due Date: <span className={textColor(deadline(item.due_date),'text-darkgreen','text-orange','text-red')+' font-bold'}>{ due_date + select_time }</span>  
                     </div>
                     <div className='mb-10'><IoMdArrowUp/> Priority: 
-                    {scalePosition(item.priority_index)} ({item.priority_index==null ? 0 : item.priority_index}/10)
+                    {priority_position} ({item.priority_index==null ? 0 : item.priority_index}/10)
                     </div>
                     <div className='mb-10'><TiArrowMove/> Complexity: 
-                    {scalePosition(item.complexity_index)} ({item.complexity_index==null ? 0 : item.complexity_index}/10) 
+                    {complexity_position} ({item.complexity_index==null ? 0 : item.complexity_index}/10)  
                     </div>
                 </div>
             </div>

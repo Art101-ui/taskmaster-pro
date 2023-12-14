@@ -19,93 +19,16 @@ function App() {
     tags:''
    }
   
-  const [view,setView] = useState(2)
+  const [view,setView] = useState(0)
   const [listformData, setListFormData] = useState([])
-  const [idCounter, setIdCounter] = useState(0);
+  const [selectedId,setSelectedId] = useState(null)
    const [formData, setformData] = useState(initialData)
 
-   function handleTaskName(e){
-     setformData({
-      ...formData,
-      taskname:e.target.value
-     })
-   }
 
-   function handlePriorityIndex(value){
-    setformData({
-      ...formData,
-      priority_index:value
-    })
-   }
-
-   function handleComplexityIndex(value){
-    setformData({
-      ...formData,
-      complexity_index:value
-    })
-   }
-
-   function handleDueDate(e){
-    setformData({
-      ...formData,
-      due_date:e.target.value
-     })
-   }
-
-   function handleSelectTime(e){
-    setformData({
-      ...formData,
-      select_time:e.target.value
-     })
-   }
+  
 
 
-   function handleChecklist(value){
-    setformData({
-      ...formData,
-      checklist:[...formData.checklist, value]
-     })
-   }
-
-   function handleDeleteChecklistItem(value){
-    setformData({
-      ...formData,
-      checklist: formData.checklist.filter(item=>{
-        return item !== value
-      })
-     })
-   }
-
-   function handleTags(e){
-    setformData({
-      ...formData,
-      tags:e.target.value
-     })
-   }
-
-   function handleUpdateData(toggleId){
-    setListFormData(
-      listformData.map(item=>{
-        if(item.id === toggleId){
-          return {...item, ...formData}
-        }else{
-          return item
-        }
-      })
-    )
-
-     setformData(initialData)
-   }
-
-
-   function handleFormData(){ 
-    const newTask = {id: idCounter , ...formData}
-    setIdCounter(prev=>prev + 1) 
-    setListFormData([...listformData,newTask])
-    setformData(initialData)
-   }
-
-  //  formData
+// Add or Edit
 const [title,setTitle] = useState('add')
 
 function handleView(viewId,changeText){
@@ -119,8 +42,7 @@ function handleView(viewId,changeText){
        setView(1)
        setTitle('add')
      }else if(viewId === 2 && changeText ===null){
-       setView(2)
-       
+       setView(2)     
      }
   }
 
@@ -129,11 +51,9 @@ function handleView(viewId,changeText){
     setListFormData(
       listformData.map(item=>{
         if(item.id === todo.id){
-          let updatedItem = {
+          return {
             ...item, 
             selectedItemIds: item.selectedItemIds.includes(toggleId) ? item.selectedItemIds.filter(id=>id!== toggleId) : [...item.selectedItemIds,toggleId]}
-          setformData(updatedItem)
-          return updatedItem
         }else{
           return item
         }
@@ -145,11 +65,9 @@ function handleView(viewId,changeText){
     setListFormData(
       listformData.map(item=>{
         if(item.id === todo.id){
-          let updatedItem = {
+          return {
             ...item, 
-            selectedItemIds: []}
-          setformData(updatedItem)
-          return updatedItem
+            selectedItemIds: []} 
         }else{
           return item
         }
@@ -165,6 +83,10 @@ function handleView(viewId,changeText){
 
   // **************************************************
  
+  const selectedItem = listformData.find(item=>item.id === selectedId)
+  console.log(listformData)
+  console.log(selectedId)
+  console.log(selectedItem)
 
   return (
     <div className="App">
@@ -173,10 +95,8 @@ function handleView(viewId,changeText){
         <TodoHome
         onView = {handleView}
         listformData = {listformData}
-        tags= {formData.tags}
-        editformData ={(value)=>setformData(value)}
-        detailTodoData ={(value)=>setformData(value)
-        }
+        selectedId={selectedId}
+        onSelectedIdChange = {setSelectedId}
         />
 
        }
@@ -186,31 +106,17 @@ function handleView(viewId,changeText){
          title = {title}
          onView = {()=>{
           handleView(0,null)}}
-          id={formData.id}
-         taskname = {formData.taskname}
-         due_date = {formData.due_date}
-         select_time = {formData.select_time}
-         checklist = {formData.checklist}
-         tags = {formData.tags}
-         onTaskName = {handleTaskName}
-         onDueDate = {handleDueDate}
-         onSelectTime = {handleSelectTime}
-         onChecklist = {handleChecklist}
-         onTags = {handleTags}
-         onDeleteItem = {handleDeleteChecklistItem}
-         onPriority = {handlePriorityIndex} 
-         onComplexity= {handleComplexityIndex} 
-         priority={formData.priority_index} 
-         complexity={formData.complexity_index}
-         onSave = {handleFormData}
-         onUpdate = {handleUpdateData}
+         listformData={listformData}
+         onListFormDataChange =  {setListFormData}
+         selectedId={selectedId}
+         selectedItem = {selectedItem}
          />
       }
       {
         view === 2 &&
         <DetailPage
           onView = {handleView}
-          item ={formData}
+          item ={selectedItem}
           onSelectedIds = {handleSelectedIds}
           onRepeatTask = {handleRepeatTask}
           onDeleteTask = {handleDeleteTask}

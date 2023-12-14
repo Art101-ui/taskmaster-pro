@@ -1,9 +1,11 @@
 import React from 'react'
 import { FaPlus } from "react-icons/fa6";
 
-const AddTaskButton = ({onShow}) => {
+const AddTaskButton = ({onShow,onSelectedIdChange}) => {
   return (
-    <button onClick={onShow}  className='addButton'><FaPlus className='plus-sign'/> Add New Task</button>
+    <button onClick={()=>{
+      onSelectedIdChange(null)
+      onShow()}}  className='addButton'><FaPlus className='plus-sign'/> Add New Task</button>
   )
 }
 
