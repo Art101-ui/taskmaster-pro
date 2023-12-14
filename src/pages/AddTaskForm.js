@@ -3,8 +3,6 @@ import { FaArrowLeft,FaPlus } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { v4 as uuidv4 } from 'uuid';
 
-
-// let id = 0;
 const initialData = {
   taskname:'',
   priority_index:null,
@@ -16,7 +14,7 @@ const initialData = {
   tags:''
  }
 const AddTaskForm = (props) => {
-  const {onView, onUpdate, title, listformData, onListFormDataChange, selectedItem, selectedId } = props
+  const {onView, title, listformData, onListFormDataChange, selectedItem, selectedId } = props
   let initialValue = selectedId !== null ? selectedItem : initialData
 
   const [formData, setformData] = useState(initialValue)

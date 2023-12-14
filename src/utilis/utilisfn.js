@@ -98,7 +98,7 @@ function filteredtodos(items,filteredItems){
  }
 
  function deadline(value){
-    if(value == ''){
+    if(value === ''){
       return 
     }
     let timeNow = new Date()

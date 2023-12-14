@@ -8,9 +8,9 @@ import { TiArrowMove } from "react-icons/ti";
 import { MdOutlineDateRange } from "react-icons/md";
 import { convertDate, scalePosition, getTaskProgress, getTime, deadline, deadlineColor, textColor,  } from '../utilis/utilisfn';
 
-const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
+const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
      
-    let value = getTaskProgress(item.selectedItemIds, item.checklistArr)
+    let taskProgress = getTaskProgress(item.selectedItemIds, item.checklistArr)
 
     let checklistArrId = item.checklistArr.map((item,index)=>{
         return {id: index++,item:item}
@@ -19,7 +19,7 @@ const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
     let checklistArr = checklistArrId.map(a=>{
         return(
             <li className='item  cursor-pointer' key={a.id} onClick={()=>{
-                onSelectedIds(item,a.id)
+                handleSelectedIds(item,a.id)
             }}>
                 {a.item}
                 <div className={(item.selectedItemIds.includes(a.id) && 'bg-blue') + ' done-wrapper'} >
@@ -35,6 +35,42 @@ const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
     
     let priority_position = scalePosition(item.priority_index)
     let complexity_position = scalePosition(item.complexity_index)
+
+
+    // Event handlers
+    function handleSelectedIds(todo,toggleId){ 
+      onListFormDataChange(
+        listformData.map(item=>{
+          if(item.id === todo.id){
+            return {
+              ...item, 
+              selectedItemIds: item.selectedItemIds.includes(toggleId) ? item.selectedItemIds.filter(id=>id!== toggleId) : [...item.selectedItemIds,toggleId]}
+          }else{
+            return item
+          }
+        })
+      ) 
+      
+    }
+    function handleRepeatTask(todo){ 
+      onListFormDataChange(
+        listformData.map(item=>{
+          if(item.id === todo.id){
+            return {
+              ...item, 
+              selectedItemIds: []} 
+          }else{
+            return item
+          }
+        })
+      )   
+    }
+  
+    function handleDeleteTask(todo){ 
+      onListFormDataChange(
+        listformData.filter(item=>item.id !== todo.id)
+      )   
+    }
 
   return (
     <div className='detailPage '>
@@ -68,21 +104,21 @@ const DetailPage = ({onView,item, onSelectedIds,onRepeatTask,onDeleteTask}) => {
             </div>
             <div className="task-complete flex">
                 <h3>Task Complete</h3>
-                <h3>{value * 100}%</h3>
+                <h3>{taskProgress * 100}%</h3>
             </div>
             <div className="progress-wrapper">
-                <progress className='progress-bar' value={value} max={1} />
+                <progress className='progress-bar' value={taskProgress} max={1} />
             </div>
         </div>
         <ul className='checklistItems'>
           <p className='font-bold'>Checklist for subtask</p>
           {checklistArr}
         </ul>
-        <div className='repeat' onClick={()=>onRepeatTask(item)}>
+        <div className='repeat' onClick={()=>handleRepeatTask(item)}>
           <button className='detailButton repeatButton'><FiRepeat className='mr-10'/>Repeat Task</button>
         </div>
         <div className='delete' onClick={()=>{
-            onDeleteTask(item)
+            handleDeleteTask(item)
             onView(0,null)}}>
           <button className='detailButton deleteButton'><MdDelete className='mr-10'/>Delete Task</button>
         </div>

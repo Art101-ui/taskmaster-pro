@@ -8,25 +8,9 @@ import DetailPage from './pages/DetailPage';
 
 
 function App() {
-  const initialData = {
-    taskname:'',
-    priority_index:null,
-    complexity_index:null,
-    due_date:'',
-    select_time:'',
-    checklist:[],
-    selectedItemIds:[],
-    tags:''
-   }
-  
   const [view,setView] = useState(0)
   const [listformData, setListFormData] = useState([])
   const [selectedId,setSelectedId] = useState(null)
-   const [formData, setformData] = useState(initialData)
-
-
-  
-
 
 // Add or Edit
 const [title,setTitle] = useState('add')
@@ -34,7 +18,6 @@ const [title,setTitle] = useState('add')
 function handleView(viewId,changeText){
      if(viewId === 0 && changeText===null){
       setView(0)
-      setformData(initialData)
      }else if(viewId === 1 && changeText ==='edit'){
        setView(1)
        setTitle('edit')
@@ -46,47 +29,8 @@ function handleView(viewId,changeText){
      }
   }
 
-  //*********Subtask selectedIds********************/ 
-  function handleSelectedIds(todo,toggleId){ 
-    setListFormData(
-      listformData.map(item=>{
-        if(item.id === todo.id){
-          return {
-            ...item, 
-            selectedItemIds: item.selectedItemIds.includes(toggleId) ? item.selectedItemIds.filter(id=>id!== toggleId) : [...item.selectedItemIds,toggleId]}
-        }else{
-          return item
-        }
-      })
-    ) 
-    
-  }
-  function handleRepeatTask(todo){ 
-    setListFormData(
-      listformData.map(item=>{
-        if(item.id === todo.id){
-          return {
-            ...item, 
-            selectedItemIds: []} 
-        }else{
-          return item
-        }
-      })
-    )   
-  }
-
-  function handleDeleteTask(todo){ 
-    setListFormData(
-      listformData.filter(item=>item.id !== todo.id)
-    )   
-  }
-
-  // **************************************************
- 
-  const selectedItem = listformData.find(item=>item.id === selectedId)
-  console.log(listformData)
-  console.log(selectedId)
-  console.log(selectedItem)
+  // SelectedItem
+ const selectedItem = listformData.find(item=>item.id === selectedId)
 
   return (
     <div className="App">
@@ -117,10 +61,8 @@ function handleView(viewId,changeText){
         <DetailPage
           onView = {handleView}
           item ={selectedItem}
-          onSelectedIds = {handleSelectedIds}
-          onRepeatTask = {handleRepeatTask}
-          onDeleteTask = {handleDeleteTask}
-        
+          listformData = {listformData}
+          onListFormDataChange =  {setListFormData}
         />
       }
     </div>

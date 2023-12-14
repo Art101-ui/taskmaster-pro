@@ -1,7 +1,6 @@
 import React from 'react'
 import { IoSearch } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa";
-import { filterItems } from '../utilis/utilisfn'
 
 const SearchBar = ({searchInput,onChange,onSearch}) => {
   return (

@@ -5,7 +5,7 @@ import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
 import { searchItems, filteredtodos, sortedTodos } from '../utilis/utilisfn'
 
-const TodoHome = ({onView,listformData,selectedId,onSelectedIdChange}) => {
+const TodoHome = ({onView,listformData,onSelectedIdChange}) => {
 
   // Search state variable
   const [searchInput, setSearchInput] = useState('')
