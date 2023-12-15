@@ -11,6 +11,7 @@ function App() {
   const [view,setView] = useState(0)
   const [listformData, setListFormData] = useState(items)
   const [selectedId,setSelectedId] = useState(null)
+  const [donetodo,setDoneTodo] = useState(false)
 
   useEffect(() => {
     localStorage.setItem('items',JSON.stringify(listformData))
@@ -44,8 +45,11 @@ function handleView(viewId,changeText){
         <TodoHome
         onView = {handleView}
         listformData = {listformData}
+        onListFormDataChange =  {setListFormData}
         selectedId={selectedId}
         onSelectedIdChange = {setSelectedId}
+        donetodo={donetodo}
+        onDoneTodoChange = {setDoneTodo}
         />
 
        }
@@ -69,7 +73,6 @@ function handleView(viewId,changeText){
           item ={selectedItem}
           listformData = {listformData}
           onListFormDataChange =  {setListFormData}
-         
         />
       }
     </div>

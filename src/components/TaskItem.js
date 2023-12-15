@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { CiEdit } from "react-icons/ci";
 import { IoMdCheckmark, IoMdArrowUp } from "react-icons/io";
 import { TiArrowMove } from "react-icons/ti";
@@ -7,9 +7,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { convertDate, scalePosition, getTaskProgress, getTime, deadline, deadlineColor, textColor, pathColor } from '../utilis/utilisfn';
 
-const TaskItem = ({item, onView, onDetailTask,onSelectedIdChange}) => {
-  const [done,setDone] = useState(false)
-
+const TaskItem = ({item,listformData,onListFormDataChange, onView,onSelectedIdChange}) => {
   
   let taskProgress = getTaskProgress(item.selectedItemIds, item.checklistArr)
   let due_date = convertDate(item.due_date) === '' ? 'No Set Date' : convertDate(item.due_date)
@@ -24,17 +22,26 @@ const TaskItem = ({item, onView, onDetailTask,onSelectedIdChange}) => {
     onSelectedIdChange(id)
  }
  
+ function handleDoneTodo(value){
+   onListFormDataChange(listformData.map(item=>{
+    if(value.id === item.id){
+      return {...item, done: !item.done}
+    }else{
+      return item
+    }
+   }))
+ }
   
 
   return (
-    <div  className={(done ? 'bg-green' : 'bg-white') +" task-content cursor-pointer"} onClick={()=>{
+    <div  className={(item.done ? 'bg-green' : 'bg-white') +" task-content cursor-pointer"} onClick={()=>{
       onSelectedIdChange(item.id)
       onView(2,null)
       }}>
         <div className="task-heading flex">
             <div className="taskName">
               <div className={deadlineColor(deadline(item.due_date),'bg-mediumgreen','bg-mediumorange','bg-mediumred')+" labelColor mr-10"}></div>
-                {item.taskname}
+              {item.done ? <del>{item.taskname}</del> : item.taskname}
             </div>
             <div className="taskTools">
                 <div onClick={(e)=>{
@@ -45,7 +52,7 @@ const TaskItem = ({item, onView, onDetailTask,onSelectedIdChange}) => {
                 </div>
                 <div className={deadlineColor(deadline(item.due_date),'bg-lightgreen','bg-lightorange','bg-lightred') + " checkmark"} onClick={(e)=>{
                   e.stopPropagation()
-                  setDone(prev=>!prev)
+                  handleDoneTodo(item)
                 }}>
                   <IoMdCheckmark className='tool'/>           
                 </div>

@@ -85,11 +85,11 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
              <CiEdit/>
           </div>
         </div>
-        <div  className= "task-content bg-white mb-15">
+        <div  className= {(item.done ? 'bg-green' : 'bg-white') + " task-content mb-15"}>
             <div className="task-heading flex mb-15">
                 <div className="taskName font-22">
                 <div className={deadlineColor(deadline(item.due_date),'bg-mediumgreen','bg-mediumorange','bg-mediumred')+" labelColor mr-10"}></div>         
-                    {item.taskname}
+                    {item.done ? <del>{item.taskname}</del> : item.taskname}
                 </div>
             </div>
             <div className="task-body mb-15 ">
@@ -124,7 +124,6 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
         </div>
         <div className='delete' onClick={()=>{
             handleDeleteTask(item)
-            
             onView(0,null)}}>
           <button className='detailButton deleteButton'><MdDelete className='mr-10'/>Delete Task</button>
         </div>

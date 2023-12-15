@@ -9,6 +9,7 @@ const initialData = {
   complexity_index:null,
   due_date:'',
   select_time:'',
+  donetodo:false,
   checklistArr:[],
   selectedItemIds:[],
   tags:''
@@ -145,7 +146,7 @@ const AddTaskForm = (props) => {
         </div>
         <div className="form-content">
             <h2>Task Name</h2>
-            <input type="text" className='searchBar' value={formData.taskname} onChange={handleTaskName}/>
+            <input type="text" className='searchBar' value={formData.taskname} onChange={handleTaskName} required/>
             <h2>Select Priority Level</h2>
             <ul className='flex'>
                 {valuePriority}
@@ -194,10 +195,13 @@ const AddTaskForm = (props) => {
              {
               title === 'add'
               && <div onClick={()=>{
-                handleSaveTask()
-                setformData(initialValue)
-                
-                onView()
+                if(formData.taskname === ''){
+                  alert('Please add a taskname')
+                }else{
+                  handleSaveTask()
+                  setformData(initialValue) 
+                  onView()
+                }
               }} className='saveTask'>
                 <button className='addButton'>Save Task</button>
               </div>
