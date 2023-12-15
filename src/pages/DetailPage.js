@@ -20,6 +20,7 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
         return(
             <li className='item  cursor-pointer' key={a.id} onClick={()=>{
                 handleSelectedIds(item,a.id)
+                
             }}>
                 {a.item}
                 <div className={(item.selectedItemIds.includes(a.id) && 'bg-blue') + ' done-wrapper'} >
@@ -50,8 +51,8 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
           }
         })
       ) 
-      
     }
+
     function handleRepeatTask(todo){ 
       onListFormDataChange(
         listformData.map(item=>{
@@ -63,13 +64,14 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
             return item
           }
         })
-      )   
+      ) 
+       
     }
   
     function handleDeleteTask(todo){ 
       onListFormDataChange(
         listformData.filter(item=>item.id !== todo.id)
-      )   
+      )  
     }
 
   return (
@@ -114,11 +116,15 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
           <p className='font-bold'>Checklist for subtask</p>
           {checklistArr}
         </ul>
-        <div className='repeat' onClick={()=>handleRepeatTask(item)}>
+        <div className='repeat' onClick={()=>{ 
+          handleRepeatTask(item)
+          
+          }}>
           <button className='detailButton repeatButton'><FiRepeat className='mr-10'/>Repeat Task</button>
         </div>
         <div className='delete' onClick={()=>{
             handleDeleteTask(item)
+            
             onView(0,null)}}>
           <button className='detailButton deleteButton'><MdDelete className='mr-10'/>Delete Task</button>
         </div>

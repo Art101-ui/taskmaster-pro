@@ -4,7 +4,6 @@ function convertDate(date_str) {
   }
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let temp_date = date_str.split("-");
-  console.log(months[Number(temp_date[1]) - 1] + " " + temp_date[2]   + " " + temp_date[0])
   return months[Number(temp_date[1]) - 1] + " " + temp_date[2]   + " " + temp_date[0];
 }
 

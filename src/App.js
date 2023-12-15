@@ -1,16 +1,21 @@
-import { useState} from 'react'
+import { useState,useEffect } from 'react'
 import TodoHome from "./pages/TodoHome";
 import './App.css'
 import AddTaskForm from "./pages/AddTaskForm";
 import DetailPage from './pages/DetailPage';
 
 
-
-
 function App() {
+  let items= JSON.parse(localStorage.getItem('items')) !== null ? JSON.parse(localStorage.getItem('items')) : []
+
   const [view,setView] = useState(0)
-  const [listformData, setListFormData] = useState([])
+  const [listformData, setListFormData] = useState(items)
   const [selectedId,setSelectedId] = useState(null)
+
+  useEffect(() => {
+    localStorage.setItem('items',JSON.stringify(listformData))
+   
+  }, [listformData]);
 
 // Add or Edit
 const [title,setTitle] = useState('add')
@@ -54,6 +59,7 @@ function handleView(viewId,changeText){
          onListFormDataChange =  {setListFormData}
          selectedId={selectedId}
          selectedItem = {selectedItem}
+         
          />
       }
       {
@@ -63,6 +69,7 @@ function handleView(viewId,changeText){
           item ={selectedItem}
           listformData = {listformData}
           onListFormDataChange =  {setListFormData}
+         
         />
       }
     </div>

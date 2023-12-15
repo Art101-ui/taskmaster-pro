@@ -14,7 +14,7 @@ const initialData = {
   tags:''
  }
 const AddTaskForm = (props) => {
-  const {onView, title, listformData, onListFormDataChange, selectedItem, selectedId } = props
+  const {onView, title, listformData, onListFormDataChange,  selectedItem, selectedId } = props
   let initialValue = selectedId !== null ? selectedItem : initialData
 
   const [formData, setformData] = useState(initialValue)
@@ -89,6 +89,7 @@ const AddTaskForm = (props) => {
        ...prevlistformData,
        {id: uuidv4(),...formData}
       ])
+    
     }
 
    function handleUpdateData(toggleId){
@@ -195,6 +196,7 @@ const AddTaskForm = (props) => {
               && <div onClick={()=>{
                 handleSaveTask()
                 setformData(initialValue)
+                
                 onView()
               }} className='saveTask'>
                 <button className='addButton'>Save Task</button>
