@@ -23,11 +23,11 @@ const AddTaskForm = (props) => {
 
 
   // Event Handlers
-  function handleTaskName(e){
-    setformData({
-     ...formData,
-     taskname:e.target.value
-    })
+  function handleInputChange(e){
+    setformData((prev)=>({
+      ...prev,
+      [e.target.name]:e.target.value
+    }))
   }
 
   function handlePriorityIndex(value){
@@ -44,20 +44,6 @@ const AddTaskForm = (props) => {
    })
   }
 
-  function handleDueDate(e){
-   setformData({
-     ...formData,
-     due_date:e.target.value
-    })
-  }
-
-  function handleSelectTime(e){
-   setformData({
-     ...formData,
-     select_time:e.target.value
-    })
-  }
-
   function handleChecklistInput(e){
     setChecklistInput(e.target.value)
   }
@@ -68,14 +54,7 @@ const AddTaskForm = (props) => {
       checklistArr:[...formData.checklistArr, value]
      })
    }
-
-   function handleTags(e){
-    setformData({
-      ...formData,
-      tags:e.target.value
-     })
-   }
-
+ 
    function handleDeleteChecklistItem(value){
     setformData({
       ...formData,
@@ -146,7 +125,7 @@ const AddTaskForm = (props) => {
         </div>
         <div className="form-content">
             <h2>Task Name</h2>
-            <input type="text" className='searchBar' value={formData.taskname} onChange={handleTaskName} required/>
+            <input type="text" className='searchBar' name='taskname' value={formData.taskname} onChange={handleInputChange} required/>
             <h2>Select Priority Level</h2>
             <ul className='flex'>
                 {valuePriority}
@@ -158,11 +137,11 @@ const AddTaskForm = (props) => {
             <div className="time-content">
                 <div className="due-date">
                     <h2>Select Due Date</h2>
-                    <input type='date' value={formData.due_date} onChange={handleDueDate}/>
+                    <input type='date' value={formData.due_date} name='due_date' onChange={handleInputChange}/>
                 </div>
                 <div className="time">
                     <h2>Select Time</h2>
-                    <input type='time' value={formData.select_time} onChange={handleSelectTime}/>
+                    <input type='time' value={formData.select_time} name='select_time' onChange={handleInputChange}/>
                 </div>
             </div>
             <div className="checklist">
@@ -180,7 +159,7 @@ const AddTaskForm = (props) => {
             </div>
             <div className="tags">
                 <h2>Add Tags</h2>
-                <input type="text" placeholder='Tag 1,Tag 2....' value={formData.tags} onChange={handleTags}/>
+                <input type="text" placeholder='Tag 1,Tag 2....' value={formData.tags} name='tags' onChange={handleInputChange}/>
             </div>
              {
               title === 'edit' 
