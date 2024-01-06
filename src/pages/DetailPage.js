@@ -7,8 +7,12 @@ import { IoMdCheckmark, IoMdArrowUp } from "react-icons/io";
 import { TiArrowMove } from "react-icons/ti";
 import { MdOutlineDateRange } from "react-icons/md";
 import { convertDate, scalePosition, getTaskProgress, getTime, deadline, deadlineColor, textColor,  } from '../utilis/utilisfn';
+import { useTodosContext } from '../context/TodosContext';
 
-const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
+const DetailPage = ({onView,item}) => {
+
+
+  const {listformData,setListFormData} = useTodosContext()
      
     let taskProgress = getTaskProgress(item.selectedItemIds, item.checklistArr)
 
@@ -40,7 +44,7 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
 
     // Event handlers
     function handleSelectedIds(todo,toggleId){ 
-      onListFormDataChange(
+      setListFormData(
         listformData.map(item=>{
           if(item.id === todo.id){
             return {
@@ -54,7 +58,7 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
     }
 
     function handleRepeatTask(todo){ 
-      onListFormDataChange(
+      setListFormData(
         listformData.map(item=>{
           if(item.id === todo.id){
             return {
@@ -69,7 +73,7 @@ const DetailPage = ({onView,item,listformData,onListFormDataChange}) => {
     }
   
     function handleDeleteTask(todo){ 
-      onListFormDataChange(
+      setListFormData(
         listformData.filter(item=>item.id !== todo.id)
       )  
     }

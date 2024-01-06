@@ -4,8 +4,11 @@ import SortandFilter from '../components/SortandFilter'
 import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
 import { searchItems, filteredtodos, sortedTodos } from '../utilis/utilisfn'
+import { useTodosContext } from '../context/TodosContext'
 
-const TodoHome = ({onView,listformData,onListFormDataChange,onSelectedIdChange}) => {
+const TodoHome = ({onView,onSelectedIdChange}) => {
+
+  const context = useTodosContext()
 
   // Search state variable
   const [searchInput, setSearchInput] = useState('')
@@ -40,7 +43,7 @@ const TodoHome = ({onView,listformData,onListFormDataChange,onSelectedIdChange})
       setSortId(sortId)
    }
 
-  const filteredTodos = useMemo(()=> filteredtodos(listformData,filteredItems),[listformData,filteredItems])
+  const filteredTodos = useMemo(()=> filteredtodos(context.listformData,filteredItems),[context.listformData,filteredItems])
   const sortTodos = useMemo(()=> sortedTodos(filteredTodos,sortId),[filteredTodos,sortId])
   const searchTodos = useMemo(()=> searchItems(sortTodos,searchedText),[sortTodos,searchedText])
 
@@ -48,13 +51,13 @@ const TodoHome = ({onView,listformData,onListFormDataChange,onSelectedIdChange})
  
  
   let tasklist = searchTodos.map(item=>{
-    return <TaskItem onView={onView}  key={item.id} item={item} listformData={listformData} onListFormDataChange={onListFormDataChange} onSelectedIdChange={onSelectedIdChange}/>
+    return <TaskItem onView={onView}  key={item.id} item={item} onSelectedIdChange={onSelectedIdChange}/>
   })
 
   return (
     <div className='todoHome'>
         <SearchBar searchInput={searchInput} onSearch={()=>handleSearch(searchInput)} onChange={handleChange}/>
-        <SortandFilter sortId={sortId} onSort={handleSort} tasklist={listformData} filteredItems = {filteredItems}  onFilterItems={handleFilterItems}/>
+        <SortandFilter sortId={sortId} onSort={handleSort} filteredItems = {filteredItems}  onFilterItems={handleFilterItems}/>
         {tasklist}
         <AddTaskButton onSelectedIdChange={onSelectedIdChange} onShow = {()=>onView(1,'add')}/>
     </div>

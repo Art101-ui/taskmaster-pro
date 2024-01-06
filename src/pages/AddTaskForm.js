@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { FaArrowLeft,FaPlus } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { v4 as uuidv4 } from 'uuid';
+import { useTodosContext } from '../context/TodosContext';
 
 const initialData = {
   taskname:'',
@@ -15,7 +16,9 @@ const initialData = {
   tags:''
  }
 const AddTaskForm = (props) => {
-  const {onView, title, listformData, onListFormDataChange,  selectedItem, selectedId } = props
+
+  const {listformData,setListFormData} = useTodosContext()
+  const {onView, title,  selectedItem, selectedId } = props
   let initialValue = selectedId !== null ? selectedItem : initialData
 
   const [formData, setformData] = useState(initialValue)
@@ -65,7 +68,7 @@ const AddTaskForm = (props) => {
    }
 
    function handleSaveTask(){
-     onListFormDataChange((prevlistformData)=>[
+     setListFormData((prevlistformData)=>[
        ...prevlistformData,
        {id: uuidv4(),...formData}
       ])
@@ -73,7 +76,7 @@ const AddTaskForm = (props) => {
     }
 
    function handleUpdateData(toggleId){
-    onListFormDataChange(
+    setListFormData(
       listformData.map(item=>{
         if(item.id === toggleId){
           return {...item, ...formData}

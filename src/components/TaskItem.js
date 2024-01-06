@@ -6,9 +6,12 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { convertDate, scalePosition, getTaskProgress, getTime, deadline, deadlineColor, textColor, pathColor } from '../utilis/utilisfn';
+import { useTodosContext } from '../context/TodosContext';
 
-const TaskItem = ({item,listformData,onListFormDataChange, onView,onSelectedIdChange}) => {
+const TaskItem = ({item, onView,onSelectedIdChange}) => {
   
+
+  const {listformData, setListFormData} = useTodosContext()
   let taskProgress = getTaskProgress(item.selectedItemIds, item.checklistArr)
   let due_date = convertDate(item.due_date) === '' ? 'No Set Date' : convertDate(item.due_date)
   let select_time = getTime(item.select_time) === '' ? '' : `, ${getTime(item.select_time)}`
@@ -23,7 +26,7 @@ const TaskItem = ({item,listformData,onListFormDataChange, onView,onSelectedIdCh
  }
  
  function handleDoneTodo(value){
-   onListFormDataChange(listformData.map(item=>{
+  setListFormData(listformData.map(item=>{
     if(value.id === item.id){
       return {...item, done: !item.done}
     }else{

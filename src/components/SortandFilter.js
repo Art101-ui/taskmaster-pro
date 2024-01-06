@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { IoIosArrowDown } from "react-icons/io";
+import { useTodosContext } from '../context/TodosContext';
 
 let sortArray = [
   {id:0, name:'Default'},
@@ -11,7 +12,9 @@ let sortArray = [
   {id:6, name:'Descending Priority'},
 ]
 
-const SortandFilter = ({tasklist,onSort,onFilterItems,filteredItems, sortId}) => {
+const SortandFilter = ({onSort,onFilterItems,filteredItems, sortId}) => {
+
+  const context = useTodosContext()
   
   const [sortDisplay, setSortDisplay] = useState(false)
   const [filterDisplay, setFilterDisplay] = useState(false)
@@ -28,7 +31,7 @@ const SortandFilter = ({tasklist,onSort,onFilterItems,filteredItems, sortId}) =>
     )
   })
 
-  let tagsArray = tasklist.length !== 0 ? tasklist.map((item)=>{
+  let tagsArray = context.listformData.length !== 0 ? context.listformData.map((item)=>{
     return item.tags
   }).join().split(','): []
 

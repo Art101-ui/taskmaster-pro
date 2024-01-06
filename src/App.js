@@ -1,21 +1,18 @@
-import { useState,useEffect } from 'react'
+import { useState } from 'react'
 import TodoHome from "./pages/TodoHome";
 import './App.css'
 import AddTaskForm from "./pages/AddTaskForm";
 import DetailPage from './pages/DetailPage';
+import { useTodosContext } from './context/TodosContext';
 
 
 function App() {
-  let items= JSON.parse(localStorage.getItem('items')) !== null ? JSON.parse(localStorage.getItem('items')) : []
+ 
 
   const [view,setView] = useState(0)
-  const [listformData, setListFormData] = useState(items)
   const [selectedId,setSelectedId] = useState(null)
 
-  useEffect(() => {
-    localStorage.setItem('items',JSON.stringify(listformData))
-   
-  }, [listformData]);
+  const context = useTodosContext()
 
 // Add or Edit
 const [title,setTitle] = useState('add')
@@ -35,7 +32,7 @@ function handleView(viewId,changeText){
   }
 
   // SelectedItem
- const selectedItem = listformData.find(item=>item.id === selectedId)
+ const selectedItem = context.listformData.find(item=>item.id === selectedId)
 
   return (
     <div className="App">
@@ -43,12 +40,9 @@ function handleView(viewId,changeText){
         view === 0  &&
         <TodoHome
         onView = {handleView}
-        listformData = {listformData}
-        onListFormDataChange =  {setListFormData}
         selectedId={selectedId}
         onSelectedIdChange = {setSelectedId}
         />
-
        }
       {
         view === 1 && 
@@ -56,8 +50,6 @@ function handleView(viewId,changeText){
          title = {title}
          onView = {()=>{
           handleView(0,null)}}
-         listformData={listformData}
-         onListFormDataChange =  {setListFormData}
          selectedId={selectedId}
          selectedItem = {selectedItem}
          
@@ -68,8 +60,6 @@ function handleView(viewId,changeText){
         <DetailPage
           onView = {handleView}
           item ={selectedItem}
-          listformData = {listformData}
-          onListFormDataChange =  {setListFormData}
         />
       }
     </div>
